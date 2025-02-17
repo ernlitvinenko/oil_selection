@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.22.3-alpine AS builder
+FROM golang:1.22.3 AS builder
 
 WORKDIR /app
 
@@ -23,8 +23,6 @@ WORKDIR /app
 # Copy the binary from builder
 COPY --from=builder /app/oil_selection .
 
-# Copy any additional required files (like .env if needed)
-COPY index.html .
 
 # Expose port 8000
 EXPOSE 8000
