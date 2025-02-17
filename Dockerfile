@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.22.3 AS builder
+FROM golang:1.22.3-alpine AS builder
 
 WORKDIR /app
 
@@ -16,12 +16,13 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o oil_selection main.go
 
 # Final stage
-FROM alpine:latest
+FROM ubuntu:latest
 
 WORKDIR /app
 
 # Copy the binary from builder
 COPY --from=builder /app/oil_selection .
+
 
 
 # Expose port 8000
